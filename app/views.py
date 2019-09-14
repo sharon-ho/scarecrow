@@ -163,3 +163,19 @@ def index(path):
         
         return render_template('layouts/auth-default.html',
                                 content=render_template( 'pages/404.html' ) )
+
+@app.route("/upload-image", methods=["GET", "POST"])
+def upload_image():
+
+    if request.method == "POST":
+
+        if request.files:
+
+            image = request.files["image"]
+
+            print(image)
+
+            return redirect(request.url)
+
+
+    return render_template("includes/upload_image.html")
