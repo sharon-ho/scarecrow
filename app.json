@@ -1,0 +1,15 @@
+{
+  "name": "Flask Dashboard Argon",
+  "description": "Flask Dashboard app on Heroku",
+  "keywords": [
+    "flask",
+    "python",
+    "sample"
+  ],
+  "repository": "https://github.com/app-generator/flask-argon-dashboard",
+  "scripts": {
+    "postdeploy": "python -c 'from app import db; db.create_all()'"
+  },
+  "addons": [ 
+  ]
+}
