@@ -11,12 +11,17 @@ Support : https://appseed.us/support
 from flask               import render_template, request, url_for, redirect, send_from_directory
 from flask_login         import login_user, logout_user, current_user, login_required
 from werkzeug.exceptions import HTTPException, NotFound, abort
+from werkzeug.utils import secure_filename
 
 import os, logging 
 
 from app        import app, lm, db, bc
 from app.models import User
 from app.forms  import LoginForm, RegisterForm
+
+app.config["IMAGE_UPLOADS"] = "/Users/Sharon/Documents/scarecrow/images"
+app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["JPEG", "JPG", "PNG", "GIF"]
+app.config["MAX_IMAGE_FILESIZE"] = 0.5 * 1024 * 1024
 
 @app.route('/sitemap.xml')
 def sitemap():
@@ -164,6 +169,27 @@ def index(path):
         return render_template('layouts/auth-default.html',
                                 content=render_template( 'pages/404.html' ) )
 
+def allowed_image(filename):
+
+    if not "." in filename:
+        return False
+
+    ext = filename.rsplit(".", 1)[1]
+
+    if ext.upper() in app.config["ALLOWED_IMAGE_EXTENSIONS"]:
+        return True
+    else:
+        return False
+
+
+def allowed_image_filesize(filesize):
+
+    if int(filesize) <= app.config["MAX_IMAGE_FILESIZE"]:
+        return True
+    else:
+        return False
+
+
 @app.route("/upload-image", methods=["GET", "POST"])
 def upload_image():
 
@@ -171,11 +197,29 @@ def upload_image():
 
         if request.files:
 
-            image = request.files["image"]
+            if "filesize" in request.cookies:
 
-            print(image)
+                if not allowed_image_filesize(request.cookies["filesize"]):
+                    print("Filesize exceeded maximum limit")
+                    return redirect(request.url)
 
-            return redirect(request.url)
+                image = request.files["image"]
 
+                if image.filename == "":
+                    print("No filename")
+                    return redirect(request.url)
 
-    return render_template("includes/upload_image.html")
+                if allowed_image(image.filename):
+                    filename = secure_filename(image.filename)
+
+                    image.save(os.path.join(app.config["IMAGE_UPLOADS"], filename))
+
+                    print("Image saved")
+
+                    return redirect(request.url)
+
+                else:
+                    print("That file extension is not allowed")
+                    return redirect(request.url)
+
+    return render_template("layouts/default.html")
