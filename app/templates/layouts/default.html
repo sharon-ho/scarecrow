@@ -10,10 +10,18 @@
 
   </head>
 
-<body>
+<body class="bg-gradient-green">
+    
   {{ content | safe }}
 
   {% include 'includes/scripts.html' %}
+
+  
+  <div class = "align-self-center">
+
+      {% include 'includes/top-stats.html' %}
+
+    </div>
 
 </body>
 
