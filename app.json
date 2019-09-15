@@ -1,12 +1,12 @@
 {
-  "name": "Flask Dashboard Argon",
-  "description": "Flask Dashboard app on Heroku",
+  "name": "scarecrow.ai",
+  "description": "farmer's dashboard for disease information and detection in crops",
   "keywords": [
     "flask",
     "python",
     "sample"
   ],
-  "repository": "https://github.com/app-generator/flask-argon-dashboard",
+  "repository": "https://github.com/sharon-ho/scarecrow.ai",
   "scripts": {
     "postdeploy": "python -c 'from app import db; db.create_all()'"
   },

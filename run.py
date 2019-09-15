@@ -1,11 +1,10 @@
 # -*- encoding: utf-8 -*-
 """
-Argon Dashboard - coded in Flask
+scarecrow.ai - farmer's dashboard for disease information and detection
 
-Author  : AppSeed App Generator
+Author  : scarecrow.ai
 Design  : Creative-Tim.com
 License : MIT 
-Support : https://appseed.us/support 
 """
 
 # used by the static export

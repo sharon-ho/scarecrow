@@ -24,7 +24,7 @@
         "url": "https://github.com/simpllowebsites/simpllo.com/issues",
         "email": "support@appseed.us"
     },
-    "author": "AppSeed.us <support@appseed.us> (https://appseed.us)",
+    "author": "scarecrow.ai",
     "license": "MIT",
     "private": false,
     "dependencies": {
