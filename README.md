@@ -1,4 +1,4 @@
-# scarecrow.ai
+# scarecrow
 
 Analytic application for disease detection in crops. 
 
